@@ -4,16 +4,20 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
-use App\Http\Resources\LoginResource;
 use App\Services\LoginService;
+use App\Services\LogoutService;
 
 class SessionController extends Controller
 {
   protected LoginService $loginService;
+  protected LogoutService $logoutService;
 
-  public function __construct(LoginService $loginService)
-  {
+  public function __construct(
+    LoginService $loginService,
+    LogoutService $logoutService
+  ) {
     $this->loginService = $loginService;
+    $this->logoutService = $logoutService;
   }
 
   public function login(LoginRequest $request)
@@ -27,6 +31,10 @@ class SessionController extends Controller
 
   public function logout()
   {
-    //
+    $user = request()->user();
+
+    $this->logoutService->handle($user);
+
+    return response()->noContent();
   }
 }

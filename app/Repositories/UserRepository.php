@@ -19,4 +19,12 @@ class UserRepository extends BaseRepository
   {
     return $this->model->where('email', $email)->first();
   }
+
+  public function deleteTokensByName(User $user)
+  {
+    return $user
+      ->tokens()
+      ->where('name', $user->currentAccessToken()->name)
+      ->delete();
+  }
 }
