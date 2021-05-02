@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Repositories;
+
+class GenericRepository extends BaseRepository
+{
+  /**
+   * @return string
+   *  Return the model
+   */
+  public function model()
+  {
+    //return YourModel::class;
+  }
+}
